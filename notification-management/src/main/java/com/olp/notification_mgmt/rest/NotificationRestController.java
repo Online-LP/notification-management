@@ -44,6 +44,7 @@ public class NotificationRestController {
 			String email = notificationRequest.getAppuser().getEmailId();
 			String emailCCAddress = notificationRequest.getEmailCCAddress();
 			String display_name = notificationRequest.getAppuser().getDisplayName();
+			String toPhoneNumber=notificationRequest.getAppuser().getMobileNo();
 			
 			String subject = "Signup Success";
 			String companyName = "Online Learning Platform";
@@ -69,6 +70,8 @@ public class NotificationRestController {
 				    "</html>";
 
 			mailUtil.sendSSLMessageAttachment(email, emailCCAddress, subject, message);
+			String messageBody="Dear " + display_name + " Signup Success - Welcome to Online Learning Platform!";
+			mailUtil.sendSMS(toPhoneNumber, messageBody);
 
 		} catch (Exception ex) {
 			LOGGER.error(ex.getMessage(), ex);
